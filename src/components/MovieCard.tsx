@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const MovieCard: React.FC<TMDBMovie> = ({ title, poster_path, release_date }) => {
   return (
-    <Card className="flex flex-col items-center justify-center">
+    <Card data-testid="movie-card" className="flex flex-col items-center justify-center">
       <CardHeader>
         <CardTitle className="text-balance">
           {title} {release_date ? `(${release_date.slice(0, 4)})` : null}

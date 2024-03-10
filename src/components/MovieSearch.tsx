@@ -51,7 +51,7 @@ export const MovieSearch: React.FC = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col items-start lg:min-w-[500px]">
               <FormControl>
-                <Input className="w-full" placeholder="Search for a movie name" autoFocus {...field} />
+                <Input className="w-full" placeholder="Search for movies" autoFocus {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

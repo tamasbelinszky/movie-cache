@@ -31,6 +31,7 @@ export const MoviePagination: React.FC<{
           disabled={page <= 1}
           tabIndex={page <= 1 ? -1 : undefined}
           className={page <= 1 ? "pointer-events-none opacity-50" : undefined}
+          data-testid="first-page-pagination-button"
         >
           <span className="sr-only">Go to first page</span>
           <DoubleArrowLeftIcon className="h-4 w-4" />
@@ -42,6 +43,7 @@ export const MoviePagination: React.FC<{
           tabIndex={page <= 1 ? -1 : undefined}
           className={page <= 1 ? "pointer-events-none opacity-50" : undefined}
           disabled={page <= 1}
+          data-testid="previous-page-pagination-button"
         >
           <span className="sr-only">Go to previous page</span>
           <ChevronLeftIcon className="h-4 w-4" />
@@ -52,6 +54,8 @@ export const MoviePagination: React.FC<{
           aria-disabled={page >= totalPages}
           tabIndex={page >= totalPages ? -1 : undefined}
           className={page >= totalPages ? "pointer-events-none opacity-50" : undefined}
+          disabled={page >= totalPages}
+          data-testid="next-page-pagination-button"
         >
           <span className="sr-only">Go to next page</span>
           <ChevronRightIcon className="h-4 w-4" />
@@ -62,6 +66,8 @@ export const MoviePagination: React.FC<{
           aria-disabled={page >= totalPages}
           tabIndex={page >= totalPages ? -1 : undefined}
           className={page >= totalPages ? "pointer-events-none opacity-50" : undefined}
+          disabled={page >= totalPages}
+          data-testid="last-page-pagination-button"
         >
           <span className="sr-only">Go to last page</span>
           <DoubleArrowRightIcon className="h-4 w-4" />

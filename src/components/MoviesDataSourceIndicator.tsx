@@ -6,11 +6,13 @@ export const MoviesDataSourceIndicator: React.FC<{
   source?: "cache" | "tmdb";
 }> = ({ source }) => {
   return (
-    <div>
+    <div data-testid="movie-data-source-indicator">
       {source ? (
         <div className="text-xl font-bold">
           <span>Source: </span>
-          <span className="text-primary">{source.toUpperCase()}</span>
+          <span className="text-primary" data-testid="movie-data-source">
+            {source.toUpperCase()}
+          </span>
         </div>
       ) : (
         <TypewriterEffect

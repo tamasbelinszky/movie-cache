@@ -12,7 +12,9 @@
     "test": "pnpm with-test-env vitest run",
     "test:watch": "pnpm with-test-env vitest watch",
     "test:unit": "pnpm with-test-env vitest run unit",
-    "with-test-env": "dotenv -e .env.test --"
+    "with-test-env": "dotenv -e .env.test --",
+    "test:e2e": "pnpm build && npx playwright test",
+    "test:e2e:ui": "pnpm build && npx playwright test --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -37,11 +39,13 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@playwright/test": "^1.42.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20.11.25",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "autoprefixer": "^10.4.18",
+    "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.1",
