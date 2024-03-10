@@ -1,26 +1,28 @@
 import { z } from "zod";
 import { env } from "../env.mjs";
 
-const TMDBMovieSchema = z.object({
+const tmdbMovieSchema = z.object({
   title: z.string(),
   id: z.number(),
   release_date: z.string().optional(),
   overview: z.string(),
-  poster_path: z.string().nullable(), // Poster path can be null/undefined
+  poster_path: z.string().nullable(),
 });
 
-const TMDBSearchResponseSchema = z.object({
+export type TMDBMovie = z.infer<typeof tmdbMovieSchema>;
+
+export const tmdbSearchResponseSchema = z.object({
   page: z.number(),
   total_results: z.number(),
   total_pages: z.number(),
-  results: z.array(TMDBMovieSchema),
+  results: z.array(tmdbMovieSchema),
 });
 
-export type TMDBSearchResponse = z.infer<typeof TMDBSearchResponseSchema>;
+export type TMDBSearchResponse = z.infer<typeof tmdbSearchResponseSchema>;
 
 export const searchMovies = async (
   query: string,
-  page: number = 1
+  page: number
 ): Promise<TMDBSearchResponse> => {
   const url = new URL("https://api.themoviedb.org/3/search/movie");
   url.searchParams.append("api_key", env.TMDB_API_KEY);
@@ -36,7 +38,7 @@ export const searchMovies = async (
 
   const rawData = await response.json();
 
-  const result = TMDBSearchResponseSchema.safeParse(rawData);
+  const result = tmdbSearchResponseSchema.safeParse(rawData);
   if (!result.success) {
     console.error("searchMovies failed. Data was not valid", result.error);
     throw new Error(

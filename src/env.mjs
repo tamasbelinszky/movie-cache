@@ -10,6 +10,12 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     TMDB_API_KEY: z.string().min(1),
+    UPSTASH_REDIS_TOKEN: z.string().min(1),
+    API_URL: z.string().url().default("http://localhost:3000"),
+    CACHE_TTL_SECONDS: z
+      .number()
+      .int()
+      .default(60 * 2),
   },
   /*
    * Environment variables available on the client (and server).
@@ -26,5 +32,8 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     TMDB_API_KEY: process.env.TMDB_API_KEY,
+    UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN,
+    API_URL: process.env.API_URL,
+    CACHE_TTL_SECONDS: process.env.CACHE_TTL_SECONDS,
   },
 });

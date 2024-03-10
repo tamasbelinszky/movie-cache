@@ -36,7 +36,7 @@ export const MovieSearch: React.FC = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      movieName: "",
+      movieName: searchParams.get("query") || "",
     },
   });
 
@@ -63,6 +63,7 @@ export const MovieSearch: React.FC = () => {
                 <Input
                   className="w-full"
                   placeholder="Search for a movie name"
+                  autoFocus
                   {...field}
                 />
               </FormControl>
