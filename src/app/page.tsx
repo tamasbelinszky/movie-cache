@@ -1,5 +1,6 @@
 import { ModeToggle } from "@/components/ModeToggle";
 import { MovieCard } from "@/components/MovieCard";
+import { MovieNotFound } from "@/components/MovieNotFound";
 import { MoviePagination } from "@/components/MoviePagination";
 import { MovieSearch } from "@/components/MovieSearch";
 import { MoviesDataSourceIndicator } from "@/components/MoviesDataSourceIndicator";
@@ -30,7 +31,7 @@ export default async function Home({ searchParams }: { searchParams: Record<stri
         </div>
         <MoviesDataSourceIndicator source={response?.source} />
       </div>
-      {response && (
+      {response && response.data.total_results > 0 && (
         <Fragment>
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
             {response.data.results.map((movie) => {
@@ -38,10 +39,13 @@ export default async function Home({ searchParams }: { searchParams: Record<stri
             })}
           </div>
           <div className="flex">
-            <MoviePagination totalPages={response.data.total_pages} page={response.data.page} />
+            {response.data.total_pages > 1 && (
+              <MoviePagination totalPages={response.data.total_pages} page={response.data.page} />
+            )}
           </div>
         </Fragment>
       )}
+      {response && response.data.total_results === 0 && <MovieNotFound />}
     </main>
   );
 }

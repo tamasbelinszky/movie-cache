@@ -76,14 +76,25 @@ test("should be able to list movies", async ({ page }) => {
   const missingPageNumber = new URL(page.url()).searchParams.get("page");
   expect(missingPageNumber).toBeNull();
 
+  await expect(page.locator("h1")).toHaveText("Movie Not Found - 404");
+
   await expect(movieDataSourceIndicator).toContainText(["Source:"]);
 
-  await expect(firstPageButton).toBeVisible();
-  await expect(firstPageButton).toBeDisabled();
-  await expect(previousPageButton).toBeVisible();
-  await expect(previousPageButton).toBeDisabled();
-  await expect(nextPageButton).toBeVisible();
-  await expect(nextPageButton).toBeDisabled();
-  await expect(lastPageButton).toBeVisible();
-  await expect(lastPageButton).toBeDisabled();
+  await expect(firstPageButton).not.toBeVisible();
+  await expect(previousPageButton).not.toBeVisible();
+  await expect(nextPageButton).not.toBeVisible();
+  await expect(lastPageButton).not.toBeVisible();
+
+  // search for the hunt for the wilderpeople
+  await page.fill("input", "the hunt for the wilderpeople");
+  await page.press("input", "Enter");
+
+  const pageParam = new URL(page.url()).searchParams.get("page");
+  expect(pageParam).toBe(null);
+  await expect(page.locator("[data-testid=movie-card]")).toHaveCount(1);
+
+  await expect(firstPageButton).not.toBeVisible();
+  await expect(previousPageButton).not.toBeVisible();
+  await expect(nextPageButton).not.toBeVisible();
+  await expect(lastPageButton).not.toBeVisible();
 });
