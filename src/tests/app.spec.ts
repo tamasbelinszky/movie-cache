@@ -65,10 +65,17 @@ test("should be able to list movies", async ({ page }) => {
   await expect(lastPageButton).toBeEnabled();
 
   // search for movies that don't exist
-  await page.fill("input", "asdasdasdasd");
+  await page.fill("input", "jkshdjkfhdskfhdo9382y5iwehfeddsjhfkjdsfhkksajhdfk");
+  const pageNumber = new URL(page.url()).searchParams.get("page");
+  expect(pageNumber).toBeDefined();
+
   await page.press("input", "Enter");
   await expect(page.locator("[data-testid=movie-data-source-indicator]")).toBeVisible();
   await expect(page.locator("[data-testid=movie-card]")).toHaveCount(0);
+
+  const missingPageNumber = new URL(page.url()).searchParams.get("page");
+  expect(missingPageNumber).toBeNull();
+
   await expect(movieDataSourceIndicator).toContainText(["Source:"]);
 
   await expect(firstPageButton).toBeVisible();

@@ -36,7 +36,7 @@ export const MovieSearch: React.FC = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(() => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams();
       params.set("query", values.movieName);
       return router.push(`${pathname}?${params.toString()}`);
     });
