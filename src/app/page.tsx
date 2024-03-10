@@ -6,7 +6,8 @@ import { MovieSearch } from "@/components/MovieSearch";
 import { MoviesDataSourceIndicator } from "@/components/MoviesDataSourceIndicator";
 import { env } from "@/env.mjs";
 import { MAX_QUERY_LENGTH } from "@/lib/tmdb";
-import { FilmIcon } from "lucide-react";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 import { Fragment } from "react";
 
 import { MovieCacheRouteResponseSchema } from "./api/v1/movies/route";
@@ -24,8 +25,11 @@ export default async function Home({ searchParams }: { searchParams: Record<stri
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-between gap-3 p-2 lg:p-4">
       <div className="flex w-full flex-col items-center justify-between gap-3 p-2">
-        <div className="flex w-full justify-between">
-          <FilmIcon size={32} className="text-primary" />
+        <div className="justify-ceter flex w-full flex-col-reverse items-center lg:flex-row lg:justify-between">
+          <Link href="https://github.com/tamasbelinszky" className=" hidden text-primary lg:block" target="_blank">
+            <GitHubLogoIcon className="h-8 w-8" />
+          </Link>
+
           <MovieSearch />
           <ModeToggle />
         </div>
