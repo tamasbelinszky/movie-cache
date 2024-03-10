@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MAX_QUERY_LENGTH } from "@/lib/tmdb";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -16,8 +17,8 @@ const formSchema = z.object({
     .min(3, {
       message: "Movie name must be at least 3 characters.",
     })
-    .max(80, {
-      message: "Movie name must be at most 80 characters.",
+    .max(MAX_QUERY_LENGTH, {
+      message: `Movie name must be at most ${MAX_QUERY_LENGTH} characters.`,
     }),
 });
 

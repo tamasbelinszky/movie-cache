@@ -21,26 +21,22 @@ export const tmdbSearchResponseSchema = z.object({
 
 export type TMDBSearchResponse = z.infer<typeof tmdbSearchResponseSchema>;
 
-export const searchMovies = async (query: string, page: number): Promise<TMDBSearchResponse> => {
+export const MAX_QUERY_LENGTH = 50;
+
+export const searchMovies = async (params: { query: string; page: number }): Promise<TMDBSearchResponse> => {
   const url = new URL("https://api.themoviedb.org/3/search/movie");
   url.searchParams.append("api_key", env.TMDB_API_KEY);
-  url.searchParams.append("query", query);
-  url.searchParams.append("page", page.toString());
+  url.searchParams.append("query", params.query);
+  url.searchParams.append("page", params.page.toString());
 
   const response = await fetch(url.toString());
 
   if (!response.ok) {
-    console.error("searchMovies failed. Network response was not ok", response);
+    console.error(`Failed to fetch movies for query: ${params.query}, page: ${params.page}`);
     throw new Error("Network response was not ok");
   }
 
   const rawData = await response.json();
 
-  const result = tmdbSearchResponseSchema.safeParse(rawData);
-  if (!result.success) {
-    console.error("searchMovies failed. Data was not valid", result.error);
-    throw new Error(`Data was not valid. ${JSON.stringify(result.error, null, 2)}`);
-  }
-
-  return result.data;
+  return tmdbSearchResponseSchema.parse(rawData);
 };

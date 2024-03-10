@@ -1,9 +1,9 @@
 import { createMovieCacheKey, getAndIncrementMovieCache, setMovieCache } from "@/lib/redis";
-import { searchMovies, tmdbSearchResponseSchema } from "@/lib/tmdb";
+import { MAX_QUERY_LENGTH, searchMovies, tmdbSearchResponseSchema } from "@/lib/tmdb";
 import { z } from "zod";
 
 const moviesCacheQuerySchema = z.object({
-  query: z.string().min(1).max(50),
+  query: z.string().min(1).max(MAX_QUERY_LENGTH),
   page: z.number().min(0).max(10000),
 });
 
@@ -35,7 +35,12 @@ export async function GET(request: Request) {
     );
   }
 
-  const data = await searchMovies(movieQuery.query, movieQuery.page);
+  const data = await searchMovies({
+    query: movieQuery.query,
+    page: movieQuery.page,
+  });
+
   await setMovieCache({ key, data });
+
   return new Response(JSON.stringify(movieCacheRouteResponseSchema.parse({ data, source: "tmdb" })));
 }

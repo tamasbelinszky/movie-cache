@@ -4,6 +4,7 @@ import { MoviePagination } from "@/components/MoviePagination";
 import { MovieSearch } from "@/components/MovieSearch";
 import { MoviesDataSourceIndicator } from "@/components/MoviesDataSourceIndicator";
 import { env } from "@/env.mjs";
+import { MAX_QUERY_LENGTH } from "@/lib/tmdb";
 import { FilmIcon } from "lucide-react";
 import { Fragment } from "react";
 
@@ -11,7 +12,7 @@ import { MovieCacheRouteResponseSchema } from "./api/v1/movies/route";
 
 export default async function Home({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
   const { query, page } = searchParams;
-  const isValidQuery = typeof query === "string" && query.length > 2 && query.length < 50;
+  const isValidQuery = typeof query === "string" && query.length > 2 && query.length < MAX_QUERY_LENGTH;
 
   const response: MovieCacheRouteResponseSchema = isValidQuery
     ? await fetch(`${env.API_URL}/api/v1/movies?query=${query}&page=${page || 1}`, {

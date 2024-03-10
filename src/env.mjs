@@ -8,7 +8,6 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    DATABASE_URL: z.string().url(),
     TMDB_API_KEY: z.string().min(1),
     UPSTASH_REDIS_TOKEN: z.string().min(1),
     API_URL: z.string().url().default("http://localhost:3000"),
@@ -30,10 +29,10 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
     TMDB_API_KEY: process.env.TMDB_API_KEY,
     UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN,
     API_URL: process.env.API_URL,
     CACHE_TTL_SECONDS: process.env.CACHE_TTL_SECONDS,
   },
+  skipValidation: process.env.NODE_ENV === "test",
 });
