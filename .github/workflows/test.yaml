@@ -1,0 +1,61 @@
+name: Test
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+
+      - name: Copy .env.test to .env
+        run: |
+          cp .env.test .env
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8.15.4
+          run_install: false
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+
+      - name: Install Playwright
+        run: npx playwright install
+
+      - name: Perform basic audit
+        run: pnpm audit --audit-level high
+
+      - name: Perform quality checks
+        id: quality-checks
+        run: |
+          pnpm run format:check
+          pnpm run lint
+
+      - name: Build
+        id: build
+        run: pnpm run build
+
+      - name: Run tests
+        id: test
+        run: pnpm run test
+
+      - name: Run e2e tests
+        id: e2e
+        run: pnpm run test:e2e
+        env:
+          CI: true
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          UPSTASH_REDIS_TOKEN: ${{ secrets.UPSTASH_REDIS_TOKEN }}

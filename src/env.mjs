@@ -21,7 +21,10 @@ export const env = createEnv({
    *
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
-  client: {},
+  client: {
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().default("phc_test"),
+    NEXT_PUBLIC_POSTHOG_HOST: z.string().default("https://app.posthog.com"),
+  },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
    * we need to manually destructure them to make sure all are included in bundle.
@@ -33,6 +36,8 @@ export const env = createEnv({
     UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN,
     API_URL: process.env.API_URL,
     CACHE_TTL_SECONDS: process.env.CACHE_TTL_SECONDS,
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   },
   skipValidation: process.env.NODE_ENV === "test",
 });
