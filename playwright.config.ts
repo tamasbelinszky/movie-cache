@@ -1,7 +1,4 @@
 import { defineConfig } from "@playwright/test";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export default defineConfig({
   webServer: {
@@ -12,6 +9,7 @@ export default defineConfig({
     stderr: "pipe",
     env: {
       ...process.env,
+      API_URL: "http://127.0.0.1:3000",
       PORT: "3000",
     },
   },

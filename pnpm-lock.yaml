@@ -85,9 +85,6 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4.18
     version: 10.4.18(postcss@8.4.35)
-  dotenv:
-    specifier: ^16.4.5
-    version: 16.4.5
   dotenv-cli:
     specifier: ^7.4.1
     version: 7.4.1

@@ -11,20 +11,14 @@ export const env = createEnv({
     TMDB_API_KEY: z.string().min(1),
     UPSTASH_REDIS_TOKEN: z.string().min(1),
     API_URL: z.string().url().default("http://localhost:3000"),
-    CACHE_TTL_SECONDS: z
-      .number()
-      .int()
-      .default(60 * 2),
+    CACHE_TTL_SECONDS: z.coerce.number().default(60 * 2),
   },
   /*
    * Environment variables available on the client (and server).
    *
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
-  client: {
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().default("phc_test"),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string().default("https://app.posthog.com"),
-  },
+  client: {},
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
    * we need to manually destructure them to make sure all are included in bundle.
@@ -39,5 +33,5 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   },
-  skipValidation: process.env.NODE_ENV === "test",
+  skipValidation: process.env.NODE_ENV === "test" || process.env.CI,
 });
