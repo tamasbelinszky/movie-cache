@@ -1,5 +1,6 @@
 import { env } from "@/env.mjs";
 import { Redis } from "@upstash/redis";
+
 import { TMDBSearchResponse, tmdbSearchResponseSchema } from "./tmdb";
 
 const redis = new Redis({
@@ -28,10 +29,7 @@ export const getAndIncrementMovieCache = async (key: string) => {
   return movieCache;
 };
 
-export const setMovieCache = async (params: {
-  key: string;
-  data: TMDBSearchResponse;
-}) => {
+export const setMovieCache = async (params: { key: string; data: TMDBSearchResponse }) => {
   await redis.hset(params.key, {
     data: JSON.stringify(params.data),
     hitCount: 0,

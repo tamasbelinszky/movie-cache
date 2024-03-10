@@ -1,6 +1,7 @@
 "use client";
 
 import { PropsWithChildren } from "react";
+
 import { ThemeProvider } from "./ThemeProvider";
 
 export const Providers: React.FC<PropsWithChildren> = ({ children }) => {

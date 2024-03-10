@@ -1,13 +1,10 @@
 "use client";
 
-import {
-  DoubleArrowLeftIcon,
-  DoubleArrowRightIcon,
-} from "@radix-ui/react-icons";
-
+import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+
 import { Button } from "./ui/button";
 
 export const MoviePagination: React.FC<{
@@ -25,7 +22,7 @@ export const MoviePagination: React.FC<{
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-2">
+    <div className="flex flex-col items-center justify-center gap-2">
       <div className="flex gap-2">
         <Button
           variant="outline"
@@ -54,9 +51,7 @@ export const MoviePagination: React.FC<{
           onClick={() => router.push(createPageUrl(page + 1))}
           aria-disabled={page >= totalPages}
           tabIndex={page >= totalPages ? -1 : undefined}
-          className={
-            page >= totalPages ? "pointer-events-none opacity-50" : undefined
-          }
+          className={page >= totalPages ? "pointer-events-none opacity-50" : undefined}
         >
           <span className="sr-only">Go to next page</span>
           <ChevronRightIcon className="h-4 w-4" />
@@ -66,9 +61,7 @@ export const MoviePagination: React.FC<{
           onClick={() => router.push(createPageUrl(totalPages))}
           aria-disabled={page >= totalPages}
           tabIndex={page >= totalPages ? -1 : undefined}
-          className={
-            page >= totalPages ? "pointer-events-none opacity-50" : undefined
-          }
+          className={page >= totalPages ? "pointer-events-none opacity-50" : undefined}
         >
           <span className="sr-only">Go to last page</span>
           <DoubleArrowRightIcon className="h-4 w-4" />

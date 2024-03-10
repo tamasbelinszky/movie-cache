@@ -1,21 +1,14 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const formSchema = z.object({
   movieName: z
@@ -50,22 +43,14 @@ export const MovieSearch: React.FC = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex justify-center items-center gap-2"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center justify-center gap-2">
         <FormField
           control={form.control}
           name="movieName"
           render={({ field }) => (
-            <FormItem className="flex lg:min-w-[500px] flex-col items-start">
+            <FormItem className="flex flex-col items-start lg:min-w-[500px]">
               <FormControl>
-                <Input
-                  className="w-full"
-                  placeholder="Search for a movie name"
-                  autoFocus
-                  {...field}
-                />
+                <Input className="w-full" placeholder="Search for a movie name" autoFocus {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

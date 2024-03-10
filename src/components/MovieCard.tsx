@@ -1,13 +1,8 @@
-import type { TMDBMovie } from "@/lib/tmdb";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { TMDBMovie } from "@/lib/tmdb";
 import Image from "next/image";
 
-export const MovieCard: React.FC<TMDBMovie> = ({
-  title,
-  poster_path,
-  release_date,
-}) => {
+export const MovieCard: React.FC<TMDBMovie> = ({ title, poster_path, release_date }) => {
   return (
     <Card className="flex flex-col items-center justify-center">
       <CardHeader>

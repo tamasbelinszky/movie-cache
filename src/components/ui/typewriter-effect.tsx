@@ -37,7 +37,7 @@ export const TypewriterEffect = ({
           duration: 0.3,
           delay: stagger(0.1),
           ease: "easeInOut",
-        }
+        },
       );
     }
   }, [isInView, animate]);
@@ -52,10 +52,7 @@ export const TypewriterEffect = ({
                 <motion.span
                   initial={{}}
                   key={`char-${index}`}
-                  className={cn(
-                    `dark:text-white text-black opacity-0 hidden`,
-                    word.className
-                  )}
+                  className={cn(`hidden text-black opacity-0 dark:text-white`, word.className)}
                 >
                   {char}
                 </motion.span>
@@ -68,12 +65,7 @@ export const TypewriterEffect = ({
     );
   };
   return (
-    <div
-      className={cn(
-        "text-base sm:text-xl md:text-3xl lg:text-5xl font-bold text-center",
-        className
-      )}
-    >
+    <div className={cn("text-center text-base font-bold sm:text-xl md:text-3xl lg:text-5xl", className)}>
       {renderWords()}
       <motion.span
         initial={{
@@ -87,10 +79,7 @@ export const TypewriterEffect = ({
           repeat: Infinity,
           repeatType: "reverse",
         }}
-        className={cn(
-          "inline-block rounded-sm w-[4px] h-4 md:h-6 lg:h-10 bg-primary",
-          cursorClassName
-        )}
+        className={cn("inline-block h-4 w-[4px] rounded-sm bg-primary md:h-6 lg:h-10", cursorClassName)}
       ></motion.span>
     </div>
   );
