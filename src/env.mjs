@@ -12,6 +12,7 @@ export const env = createEnv({
     UPSTASH_REDIS_TOKEN: z.string().min(1),
     API_URL: z.string().url().default("http://localhost:3000"),
     CACHE_TTL_SECONDS: z.coerce.number().default(60 * 2),
+    ENABLE_EXPERIMENTAL_COREPACK: z.coerce.number().default(1),
   },
   /*
    * Environment variables available on the client (and server).
@@ -30,8 +31,7 @@ export const env = createEnv({
     UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN,
     API_URL: process.env.API_URL,
     CACHE_TTL_SECONDS: process.env.CACHE_TTL_SECONDS,
-    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
-    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    ENABLE_EXPERIMENTAL_COREPACK: process.env.ENABLE_EXPERIMENTAL_COREPACK,
   },
   skipValidation: process.env.NODE_ENV === "test" || process.env.CI,
 });

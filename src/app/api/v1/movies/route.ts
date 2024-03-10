@@ -2,6 +2,8 @@ import { createMovieCacheKey, getAndIncrementMovieCache, setMovieCache } from "@
 import { MAX_QUERY_LENGTH, searchMovies, tmdbSearchResponseSchema } from "@/lib/tmdb";
 import { z } from "zod";
 
+export const dynamic = "force-dynamic";
+
 const moviesCacheQuerySchema = z.object({
   query: z.string().min(1).max(MAX_QUERY_LENGTH),
   page: z.number().min(0).max(10000),
