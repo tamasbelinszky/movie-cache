@@ -12,6 +12,7 @@ export const MovieCard: React.FC<TMDBMovie> = ({ title, poster_path, release_dat
       </CardHeader>
       <CardContent>
         <Image
+          unoptimized
           alt={title}
           src={
             poster_path
