@@ -51,13 +51,13 @@ export function MovieSearchDrawer() {
       const params = new URLSearchParams();
       params.set("query", values.movieName);
       setOpen(false);
-      return router.push(`${pathname}?${params.toString()}`);
+      return router.push(`/movies?${params.toString()}`);
     });
   }
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">
+        <Button data-testid="movie-search-drawer-btn" variant="outline">
           <SearchIcon />
         </Button>
       </DrawerTrigger>
