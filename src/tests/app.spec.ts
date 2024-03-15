@@ -2,22 +2,22 @@ import { expect, test } from "@playwright/test";
 
 test("should be able to list movies", async ({ page }) => {
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
-  await page.goto("http://localhost:3000/");
+  await page.goto("http://localhost:3000/movies");
 
-  // initial state
-  await expect(page.locator("input")).toBeVisible();
-  const movieDataSourceIndicator = page.locator("[data-testid=movie-data-source-indicator]");
-  await expect(movieDataSourceIndicator).toBeVisible();
-  await expect(movieDataSourceIndicator).toHaveText("Start typing to search for movies.");
+  // TODO: home page
+  const drawerBtn = page.locator("[data-testid=movie-search-drawer-btn]");
 
   // search for movies
-  await page.fill("input", "Lord of the Rings");
-
+  expect(drawerBtn).toBeVisible();
+  await drawerBtn.click();
+  await page.fill("input", "Lord");
   await page.press("input", "Enter");
 
   // first result
   await expect(page.locator("[data-testid=movie-data-source-indicator]")).toBeVisible();
   await expect(page.locator("[data-testid=movie-card]")).toHaveCount(20);
+
+  const movieDataSourceIndicator = page.locator("[data-testid=movie-data-source-indicator]");
   await expect(movieDataSourceIndicator).toContainText(["Source:"]);
 
   // pagination: first page
@@ -65,27 +65,29 @@ test("should be able to list movies", async ({ page }) => {
   await expect(lastPageButton).toBeEnabled();
 
   // search for movies that don't exist
+  expect(drawerBtn).toBeVisible();
+  await drawerBtn.click();
   await page.fill("input", "jkshdjkfhdskfhdo9382y5iwehfeddsjhfkjdsfhkksajhdfk");
+  await page.press("input", "Enter");
+
   const pageNumber = new URL(page.url()).searchParams.get("page");
   expect(pageNumber).toBeDefined();
-
-  await page.press("input", "Enter");
   await expect(page.locator("[data-testid=movie-data-source-indicator]")).toBeVisible();
   await expect(page.locator("[data-testid=movie-card]")).toHaveCount(0);
 
   const missingPageNumber = new URL(page.url()).searchParams.get("page");
   expect(missingPageNumber).toBeNull();
 
-  await expect(page.locator("h1")).toHaveText("Movie Not Found - 404");
-
-  await expect(movieDataSourceIndicator).toContainText(["Source:"]);
+  await expect(page.locator("h1")).toHaveText("Movie not found");
 
   await expect(firstPageButton).not.toBeVisible();
   await expect(previousPageButton).not.toBeVisible();
   await expect(nextPageButton).not.toBeVisible();
   await expect(lastPageButton).not.toBeVisible();
 
-  // search for the hunt for the wilderpeople
+  // search for the a movie name that only has one result
+  expect(drawerBtn).toBeVisible();
+  await drawerBtn.click();
   await page.fill("input", "the hunt for the wilderpeople");
   await page.press("input", "Enter");
 
