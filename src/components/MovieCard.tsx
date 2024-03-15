@@ -19,8 +19,8 @@ export const MovieCard: React.FC<TMDBMovie> = ({ title, poster_path, release_dat
               ? `https://image.tmdb.org/t/p/w500${poster_path}`
               : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
           }
-          width={300}
-          height={300}
+          width={500}
+          height={750}
         />
       </CardContent>
     </Card>

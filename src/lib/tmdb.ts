@@ -38,5 +38,10 @@ export const searchMovies = async (params: { query: string; page: number }): Pro
 
   const rawData = await response.json();
 
-  return tmdbSearchResponseSchema.parse(rawData);
+  const data = tmdbSearchResponseSchema.parse(rawData);
+
+  // remove movies without a poster
+  data.results = data.results.filter((movie) => !!movie.poster_path);
+
+  return data;
 };
