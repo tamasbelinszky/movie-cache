@@ -50,7 +50,7 @@ export function ProfileSheet() {
       <SheetTrigger asChild className="cursor-pointer">
         <Image
           alt={profile.name}
-          src={`/profile/${profile.img}.webp`}
+          src={`/static/images/${profile.img}.webp`}
           className="rounded-full border-2 border-primary/75 dark:border-primary/40"
           height={32}
           width={32}
@@ -74,7 +74,7 @@ export function ProfileSheet() {
                   onClick={() => handleClick(profile)}
                   className="h-full bg-transparent hover:bg-primary/40 hover:text-white dark:hover:bg-gray-600 "
                 >
-                  <ProfileItem name={profile.name} avatar={`/profile/${profile.img}.webp`} />
+                  <ProfileItem name={profile.name} avatar={`/static/images/${profile.img}.webp`} />
                 </Button>
               </SheetClose>
             ))}
