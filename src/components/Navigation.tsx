@@ -7,7 +7,7 @@ import { ProfileSheet } from "./ProfileSheet";
 
 export const Navigation: React.FC = () => {
   return (
-    <nav className="flex w-full items-center justify-between gap-3 p-2">
+    <nav className="z-50 flex w-full items-center justify-between gap-3 p-2">
       <ProfileSheet />
 
       <div className="flex items-center gap-3">

@@ -1,8 +1,6 @@
 import { MovieCard } from "@/components/MovieCard";
 import { MovieNotFound } from "@/components/MovieNotFound";
 import { MoviePagination } from "@/components/MoviePagination";
-import { MoviesDataSourceIndicator } from "@/components/MoviesDataSourceIndicator";
-import { Navigation } from "@/components/Navigation";
 import { env } from "@/env.mjs";
 import { MAX_QUERY_LENGTH } from "@/lib/tmdb";
 import { Fragment } from "react";
