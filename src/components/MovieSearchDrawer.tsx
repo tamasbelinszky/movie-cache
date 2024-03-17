@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { MAX_QUERY_LENGTH } from "@/lib/tmdb";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SearchIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -51,9 +51,17 @@ export function MovieSearchDrawer() {
       params.set("query", values.movieName);
       router.push(`/movies?${params.toString()}`);
       setOpen(false);
-      router.refresh();
     });
   }
+
+  function onSubmitMobile(values: z.infer<typeof formSchema>) {
+    startTransition(() => {
+      const params = new URLSearchParams();
+      params.set("query", values.movieName);
+      redirect(`/movies?${params.toString()}`);
+    });
+  }
+
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
@@ -89,7 +97,16 @@ export function MovieSearchDrawer() {
               </Form>
             </DrawerDescription>
             <DrawerClose asChild>
-              <Button disabled={isPending || !form.formState.isValid} type="submit">
+              <Button className="hidden lg:block" disabled={isPending || !form.formState.isValid} type="submit">
+                Search
+              </Button>
+            </DrawerClose>
+            <DrawerClose asChild>
+              <Button
+                className="block lg:hidden"
+                disabled={isPending || !form.formState.isValid}
+                onClick={form.handleSubmit(onSubmitMobile)}
+              >
                 Search
               </Button>
             </DrawerClose>

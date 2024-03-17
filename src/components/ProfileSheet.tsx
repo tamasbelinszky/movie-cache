@@ -37,7 +37,6 @@ const getProfile = () => {
 
 export function ProfileSheet() {
   const router = useRouter();
-  // onclick function stores the profile object in the local storage
   const handleClick = (profile: (typeof PROFILES)[number]) => {
     localStorage.setItem("profile", JSON.stringify(profile));
     router.refresh();
@@ -48,17 +47,19 @@ export function ProfileSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild className="cursor-pointer">
-        <Image
-          unoptimized
-          alt={profile.name}
-          src={`/static/images/${profile.img}.webp`}
-          className="rounded-full border-2 border-primary/75 dark:border-primary/40"
-          height={32}
-          width={32}
-        />
+        <button>
+          <Image
+            unoptimized
+            alt={profile.name}
+            src={`/static/images/${profile.img}.webp`}
+            className="rounded-full border-2 border-primary/75 dark:border-primary/40"
+            height={32}
+            width={32}
+          />
+        </button>
       </SheetTrigger>
       <SheetContent side={"top"}>
-        <div className="mt-[5vh] flex min-h-screen flex-col items-center justify-start gap-8 overflow-scroll lg:mt-[10vh] lg:gap-36">
+        <div className="mt-[5vh] flex min-h-screen flex-col items-center justify-start gap-8 lg:mt-[10vh]  lg:gap-36 ">
           <SheetHeader>
             <SheetTitle className="animate-pulse">
               <TypewriterEffect
@@ -68,7 +69,7 @@ export function ProfileSheet() {
               />
             </SheetTitle>
           </SheetHeader>
-          <div className="grid grid-cols-2 items-center gap-4 text-center md:grid-cols-3  lg:grid-cols-5">
+          <div className="grid grid-cols-2 items-center gap-4 overflow-y-auto p-2 pb-96 text-center md:grid-cols-3 lg:grid-cols-5">
             {PROFILES.map((profile) => (
               <SheetClose asChild key={profile.name}>
                 <Button
