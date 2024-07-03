@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: { searchParams: Record<stri
     : null;
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {response && response.data.total_results > 0 && (
         <Fragment>
           <div
