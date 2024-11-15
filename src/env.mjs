@@ -13,6 +13,11 @@ export const env = createEnv({
     API_URL: z.string().url().default("http://localhost:3000"),
     CACHE_TTL_SECONDS: z.coerce.number().default(60 * 2),
     ENABLE_EXPERIMENTAL_COREPACK: z.coerce.number().default(1),
+    ENABLE_REDIS: z
+      .string()
+      .refine((s) => s === "true" || s === "false")
+      .transform((s) => s === "true")
+      .default("false"),
   },
   /*
    * Environment variables available on the client (and server).
@@ -32,6 +37,7 @@ export const env = createEnv({
     API_URL: process.env.API_URL,
     CACHE_TTL_SECONDS: process.env.CACHE_TTL_SECONDS,
     ENABLE_EXPERIMENTAL_COREPACK: process.env.ENABLE_EXPERIMENTAL_COREPACK,
+    ENABLE_REDIS: process.env.ENABLE_REDIS,
   },
   skipValidation: process.env.NODE_ENV === "test" || process.env.CI,
 });

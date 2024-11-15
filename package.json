@@ -1,13 +1,9 @@
 {
   "name": "movie-cache",
   "description": "Browse movies using the TMDB API and cache queries with Upstash Serverless Redis.",
-  "engines": {
-    "node": ">=v20.11.1",
-    "pnpm": ">=8.15.4"
-  },
-  "packageManager": "pnpm@8.15.4",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
